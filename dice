@@ -2135,12 +2135,10 @@ pwlisteff = ("abacus", "abdomen", "abdominal", "abide", "abiding", "ability",
 "zoologist", "zoology", "zoom")
 
 parser = argparse.ArgumentParser(description='Generate diceware passphrase.')
-parser.add_argument('number', type=int, help="number of words in each passphrase", 
-   default=4, nargs='?')
-parser.add_argument('-c', '--count', type=int, help="number of passphrases to generate",
-    metavar='C', default=1)
-parser.add_argument('-l', '--lang', choices=['EN', 'DE', 'EFF'], help="passphrase dictionary",
-    default='EFF')
+parser.add_argument('number', type=int, help="number of words in each passphrase", default=4, nargs='?')
+parser.add_argument('-c', '--count', type=int, help="number of passphrases to generate", metavar='C', default=1)
+parser.add_argument('-l', '--lang', choices=['EN', 'DE', 'EFF'], help="passphrase dictionary", default='EFF')
+parser.add_argument('-C', '--capitalize', help="capitalize first letter of each word", action='store_true')
 args = parser.parse_args()
 
 if args.lang == 'EN':
@@ -2152,5 +2150,8 @@ else:
 
 for i in range (0,args.count):
   for i in range (0,args.number):
-    print random.SystemRandom().choice(pwlist),
+    if (args.capitalize):
+        print random.SystemRandom().choice(pwlist).capitalize(),
+    else:
+        print random.SystemRandom().choice(pwlist),
   print
